@@ -1,0 +1,15 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+group = "com.routerating"
+
+dependencies {
+  implementation group: 'com.google.protobuf', name: 'protobuf-java', version: '3.11.4'
+}

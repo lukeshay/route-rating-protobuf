@@ -1,0 +1,25 @@
+protoc:
+  version: 3.11.4
+lint:
+  group: uber2
+  rules:
+    remove:
+      - COMMENTS_NO_INLINE
+      - FILE_OPTIONS_REQUIRE_GO_PACKAGE
+      - FILE_OPTIONS_REQUIRE_CSHARP_NAMESPACE
+      - FILE_OPTIONS_REQUIRE_OBJC_CLASS_PREFIX
+      - FILE_OPTIONS_REQUIRE_PHP_NAMESPACE
+      - MESSAGES_HAVE_SENTENCE_COMMENTS_EXCEPT_REQUEST_RESPONSE_TYPES
+      - NAMES_NO_UUID
+      - NAMES_NO_DATA
+      - PACKAGE_MAJOR_BETA_VERSIONED
+      - RPCS_HAVE_SENTENCE_COMMENTS
+create:
+  packages:
+    - directory: .
+      name: routerating
+
+generate:
+  plugins:
+    - name: java
+      output: ./gen/proto/java/src/main/java

@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package routerating.gym;
+
+option java_multiple_files = true;
+option java_outer_classname = "GymProto";
+option java_package = "com.routerating.proto.gym";
+
+// This is the User type for Route Rating.
+message Gym {
+  string id = 1;
+	string name = 2;
+	string website = 3;
+	string email = 4;
+	string phone_number = 5;
+	string logo_url = 6;
+	string photo_url = 7;
+	string address = 8;
+	string city = 9;
+	string state = 10;
+	string zip_code = 11;
+	repeated string authorized_editors = 12;
+}
