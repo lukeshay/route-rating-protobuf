@@ -1,15 +1,89 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
+		id 'signing'
 }
 
 repositories {
+		jcenter()
     mavenCentral()
     maven { url 'https://jitpack.io' }
 }
 
-group = "com.routerating"
+group = "com.lukeshay.proto"
+archivesBaseName = 'route-rating-protobuf'
+version = "0.0.1"
 
 dependencies {
   implementation group: 'com.google.protobuf', name: 'protobuf-java', version: '3.11.4'
 }
+
+publishing {
+		publications {
+				mavenJava(MavenPublication) {
+            artifactId = 'route-rating-protobuf'
+
+            from components.java
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+						pom {
+								name = 'route-rating-protobuf'
+								description = 'Route Rating proto library for java projects.'
+								url = 'https://github.com/LukeShay/route-rating-protobuf'
+
+								scm {
+										url = 'https://github.com/LukeShay/route-rating-protobuf'
+										connection = 'scm:https://github.com/LukeShay/route-rating-protobuf.git'
+										developerConnection = 'scm:git://github.com/LukeShay/route-rating-protobuf.git'
+								}
+								licenses {
+										license {
+												name = 'The Apache Software License, Version 2.0'
+												url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+												distribution = 'repo'
+										}
+								}
+								developers {
+										developer {
+												id = 'lukeshay'
+												name = 'Luke Shay'
+												email ='shay.luke17@gmail.com'
+										}
+								}
+						}
+				}
+		}
+    repositories {
+        maven {
+           	url = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+            credentials {
+                username 'lukeshay'
+                password '}JD1i"KWVH=m'
+            }
+        }
+    }
+}
+
+task sourceJar(type: Jar) {
+    classifier "sources"
+    from sourceSets.main.allJava
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier "javadoc"
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives jar
+    archives sourceJar
+    archives javadocJar
+}
+
+publishMavenJavaPublicationToMavenRepository.dependsOn(build)
