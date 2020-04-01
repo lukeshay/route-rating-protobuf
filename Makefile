@@ -1,4 +1,4 @@
-.PHONY: clean generate compile publish lint format compile-java publish-java
+.PHONY: clean generate compile lint format compile-java stage-java stage
 
 PWD=$(shell pwd)
 
@@ -11,14 +11,14 @@ generate: clean
 	@prototool generate
 
 compile-java:
-	@cd gen/proto/java && sh ./gradlew build
+	@cd gen/proto/java && sh ./gradlew clean build
 
 compile: generate compile-java
 
-publish-java:
-	@cd gen/proto/java && sh ./gradlew publish
+stage-java:
+	@cd gen/proto/java && sh ./gradlew publishMavenJavaPublicationToMavenRepository
 
-publish: compile publish-java
+stage: compile stage-java
 
 lint:
 	@prototool lint
